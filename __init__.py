@@ -1,2 +1,2 @@
 
-from .parser import parse
+from .main import parse
