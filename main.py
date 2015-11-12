@@ -35,6 +35,8 @@ History:
 Future improvements:
     - Token lookback to make sure the number seperators for time is consistent.
     - Fix handling of relative centuries.
+    - PEP8 conformity
+    - Speed
 
 '''
 
@@ -43,180 +45,21 @@ from collections import OrderedDict
 import datetime
 import time as timer
 
+import definition
+
 class dateParse(object):
 
-    def __init__(self):
-        self.weekdays = OrderedDict([
-                    ('mandag',0),
-                    ('tirsdag',1),
-                    ('onsdag',2),
-                    ('torsdag',3),
-                    ('fredag',4),
-                    ('lørdag',5),
-                    ('søndag',6),
-                    ('man',0),
-                    ('tir',1),
-                    ('ons',2),
-                    ('tor',3),
-                    ('fre',4),
-                    ('lør',5),
-                    ('søn',6),
-                    ('monday',0),
-                    ('tuesday',1),
-                    ('wednesday',2),
-                    ('thursday',3),
-                    ('friday',4),
-                    ('saturday',5),
-                    ('sunday',6),
-                    ('mon',0),
-                    ('tue',1),
-                    ('wed',2),
-                    ('th',3),
-                    ('fri',4),
-                    ('sat',5),
-                    ('sun',6),
-                    ])
+    def replace_dict(string,dictionary):
+        dictionary = {"condition1": "", "condition2": "text"} # define desired replacements here
 
-        #Month variations with month number:
-        self.months = OrderedDict([
-                        ('januar', 1),
-                        ('februar', 2),
-                        ('mars', 3),
-                        ('april', 4),
-                        ('mai', 5),
-                        ('juni', 6),
-                        ('juli', 7),
-                        ('august', 8),
-                        ('september', 9),
-                        ('oktober', 10),
-                        ('november', 11),
-                        ('desember', 12),
-                        ('january', 1),
-                        ('february', 2),
-                        ('march', 3),
-                        ('may', 5),
-                        ('june', 6),
-                        ('july', 7),
-                        ('october', 10),
-                        ('december', 12),
-                        ('jan', 1),
-                        ('feb', 2),
-                        ('mar', 3),
-                        ('apr', 4),
-                        ('jun', 6),
-                        ('jul', 7),
-                        ('aug', 8),
-                        ('sep', 9),
-                        ('okt', 10),
-                        ('nov', 11),
-                        ('des', 12),
-                        ('oct', 10),
-                        ('dec', 12)
-                        ])
+        # use these three lines to do the replacement
+        pattern = re.compile("|".join(dictionary.keys()))
+        string = pattern.sub(lambda m: str(dictionary[re.escape(m.group(0))]), string)
 
-        #Number of valid days in each month:
-        self.days = {
-                1: 31,
-                2: 29,
-                3: 31,
-                4: 30,
-                5: 31,
-                6: 30,
-                7: 31,
-                8: 31,
-                9: 30,
-                10: 31,
-                11: 30,
-                12: 31
-                }
-
-        #Relative position in year. Numbers are the months corresponding to the
-        #start of the relative position (i.e. Q1 = 1 not 3)
-        self.relativeYears = {
-                    'sommer(?:en)?':6,
-                    'høst(?:en)?':9,
-                    'vinter(?:en)?':12,
-                    'vår(?:en)?':3,
-                    'første kvartal':1,
-                    '1. kvartal':1,
-                    'Q1':1,
-                    'andre kvartal':4,
-                    '2. kvartal':4,
-                    'Q2':4,
-                    'tredje kvartal':7,
-                    '3. kvartal':7,
-                    'Q3':7,
-                    'fjerde kvartal':10,
-                    '4. kvartal':10,
-                    'Q4':10,
-                    'første halvdel':1,
-                    'tidlig':1,
-                    'starten av':1,
-                    'andre halvdel':6,
-                    'midten av':6,
-                    'sent':10,
-                    }
-
-        #Identification of typical century variations:
-        self.centuries = [
-                     '(\\d{2}00)[-\s]tallet',
-                     '(\\d{2}).? århundre'
-                    ]
-        #Identification of various relative positions in centuries, with the
-        #corresponding year:
-        self.relativeCenturies = {
-                        'første halvdel av(?: det)?':0,
-                        'første kvartal':0,
-                        'andre kvartal':25,
-                        'tredje kvartal':50,
-                        'fjerde kvartal':75,
-                        'tidlig (?:i|på)(?: det)?':0,
-                        'starten av(?: det)?':0,
-                        'andre halvdel av(?: det)?':50,
-                        'midten av(?: det)?':50,
-                        'sent på(?: det)?':90,
-                        'slutten av(?: det)?':90,
-                        'begynnelsen av(?: det)?':0,
-                        }
-
-        self.day = '%(day)s'
-        self.month = '%(month)s'
-        self.year = '%(year)s'
-        self.time = '%(time)s'
-
-        self.weekday = '%(weekday)s'
-        self.relativeYear = '%(relativeYear)s'
-        self.century = '%(century)s'
-        self.relativeCentury = '%(relativeCentury)s'
+        return string
 
 
-        #The order of what to look for. Higher complexity should come first for
-        #tests to not overlap. I.e, if [year] is placed first, it will trump
-        #everything.
-        self.combinations = [
-                     [self.day,self.month,self.year,self.time],
-                     [self.year,self.month,self.day,self.time],
-                     [self.time,self.day,self.month,self.year],
-                     [self.time,self.year,self.month,self.day],
-                     [self.day,self.month,self.year],
-                     [self.year,self.month,self.day],
-                     [self.day,self.month],
-                     [self.month,self.day],
-                     [self.weekday,self.time],
-                     [self.time,self.weekday],
-                     [self.weekday],
-                     [self.month,self.year],
-                     [self.year,self.month],
-                     [self.relativeCentury,self.century],
-                     [self.century,self.relativeCentury],
-                     [self.relativeYear,self.year],
-                     [self.year,self.relativeYear],
-                     [self.century],
-                     [self.year],
-                     ]
-
-        self.referenceDate = None
-        self.string = ''
+    def parse2(self,input_string, reference_date = None, debugging = False):
 
 
     def parse(self,stringIn,debugMode = False,referenceDate = None):
