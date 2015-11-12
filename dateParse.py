@@ -247,19 +247,9 @@ class dateParse(object):
         else:
             self.referenceDate = referenceDate
 
-##        #Make sure all strings are unicode:
-##        if not isinstance(string,unicode):
-##            string = string.decode('utf-8')
-
-
         self.string = string
 
         date = []
-
-        #Method has been rewritten to handle time as well as date.
-        #Start by removing all time-of-day numbers (i.e. 14:02:37) from the string,
-        #as these are difficult to handle otherwise:
-        #string = re.sub(r'\d{2}:\d{2}(?::\d{2})?','',string)
 
         #Check for simple, pure number dates:
         dayFormat = r'(?P<day>\d{2})'
