@@ -1,2 +1,2 @@
 
-from .dateparse import parse
+from .parser import parse

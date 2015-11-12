@@ -25,9 +25,9 @@ TEST_CASES = [
 class TestDateparseModule(unittest.TestCase):
 
     def test_parse_method(self):
-        import dateparse
+        import parser
         for candidate, response in TEST_CASES:
-            self.assertTrue(dateparse.parse(candidate),response)
+            self.assertTrue(parser.parse(candidate),response)
 
 def run():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestDateparseModule)
