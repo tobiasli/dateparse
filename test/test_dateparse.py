@@ -10,6 +10,10 @@
 #-------------------------------------------------------------------------------
 import unittest
 import datetime
+import sys
+import os
+
+sys.path = [os.path.split(os.path.dirname(__file__))[0] + os.path.sep] + sys.path
 
 TEST_CASES = [
         ('14. mai 2012',datetime.datetime(2012,5,14,0,0,0)),
