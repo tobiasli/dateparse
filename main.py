@@ -46,6 +46,43 @@ import time as timer
 class dateParse(object):
 
     def __init__(self):
+        self.days = { #NOT USED FOR ANYTHING
+                'første':1,
+                'andre':2,
+                'tredje':3,
+                'fjerde':4,
+                'femte':5,
+                'sjette':6,
+                'sjuende':7,
+                'syvende':7,
+                'åttende':8,
+                'niende':9,
+                'tiende':10,
+                'ellevte':11,
+                'tolvte':12,
+                'treddende':13,
+                'fjortende':14,
+                'femtende':15,
+                'sekstende':16,
+                'syttende':17,
+                'attende':18,
+                'nittnde':19,
+                'tjuende':20,
+                'tjueførste':21,
+                'tjueandre':22,
+                'tjuetredje':23,
+                'tjuefjerde':24,
+                'tjuefemte':25,
+                'tjuesjette':26,
+                'tjuesyvende':27,
+                'tjuesjuende':27,
+                'tjueåttende':28,
+                'tjueniende':29,
+                'tredevte':30,
+                'trettiende':30,
+                'trettiførste':31,
+                }
+
         self.weekdays = OrderedDict([
                     ('mandag',0),
                     ('tirsdag',1),
@@ -115,7 +152,7 @@ class dateParse(object):
                         ])
 
         #Number of valid days in each month:
-        self.days = {
+        self.month_days = {
                 1: 31,
                 2: 29,
                 3: 31,
@@ -384,7 +421,7 @@ class dateParse(object):
            try: days[date['month']]
            except:
                   pass
-           if date['day'] > self.days[date['month']]: #Days higher than monthly maximum.
+           if date['day'] > self.month_days[date['month']]: #Days higher than monthly maximum.
                   match = False
                   return [match,date]
 
