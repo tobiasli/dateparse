@@ -19,6 +19,8 @@ TEST_CASES = [
         ('14. mai 2012',datetime.datetime(2012,5,14,0,0,0)),
         ('14.05.2012 kl 1306',datetime.datetime(2012,5,14,13,6,0)),
         ('midten av 1600-tallet',datetime.datetime(1650,1,1,0,0,0)),
+        ('slutten av juni 57',datetime.datetime(1957,6,1,0,0,0)),
+        ('17. august 17',datetime.datetime(1917,8,17,0,0,0)),
         ('starten av det 19. århundre',datetime.datetime(1800,1,1,0,0,0))
         ]
 
