@@ -7,7 +7,7 @@ install:
   - pip install coveralls  # Add me to install python-coveralls
 script:
     - py.test
-    - coverage run --source=tests test_dataparse.py
+    - coverage run --source=tests test_dateparse.py
 after_success:  
   - coveralls                     # Add me to upload reports to coveralls.io
 
