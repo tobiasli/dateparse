@@ -4,9 +4,10 @@ python:
 before_install:
     - pip install pytest pytest-cov
 install:  
-  - pip install python-coveralls  # Add me to install python-coveralls
+  - pip install coveralls  # Add me to install python-coveralls
 script:
     - py.test
+    - coverage run \tests\test_dataparse.py
 after_success:  
   - coveralls                     # Add me to upload reports to coveralls.io
 
