@@ -26,12 +26,28 @@ TEST_CASES = [
         ('slutten av det 19. århundre',datetime.datetime(1875,1,1,0,0,0))
         ]
 
+WEEKDAY_CASES = [
+    ('mandag kl 20:10',0,20,10),
+    ('tirsdag 4:04',1,4,4),
+    ('ons kl 2',2,2,0),
+    ('torsdag 09:45',3,9,45),
+    ('friday kl 10',4,10,0),
+    ('lørdag kl 23',5,23,0),
+    ('sun kl 10',6,10,0),
+    ]
+
 class TestDateparseModule(unittest.TestCase):
 
     def test_parse_method(self):
         import main
         for candidate, response in TEST_CASES:
             self.assertTrue(main.parse(candidate),response)
+
+        for candidate, weekday, hour, minute in WEEKDAY_CASES:
+            day = main.parse(candidate)
+            self.assertTrue(day.weekday() == weekday)
+            self.assertTrue(day.hour == hour)
+            self.assertTrue(day.minute == minute)
 
 def run():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestDateparseModule)
