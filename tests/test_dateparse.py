@@ -21,7 +21,9 @@ TEST_CASES = [
         ('midten av 1600-tallet',datetime.datetime(1650,1,1,0,0,0)),
         ('slutten av juni 57',datetime.datetime(1957,6,1,0,0,0)),
         ('17. august 17',datetime.datetime(1917,8,17,0,0,0)),
-        ('starten av det 19. århundre',datetime.datetime(1800,1,1,0,0,0))
+        ('sep 17',datetime.datetime(1917,9,1,0,0,0)),
+        ('2010',datetime.datetime(2010,1,1,0,0,0)),
+        ('slutten av det 19. århundre',datetime.datetime(1875,1,1,0,0,0))
         ]
 
 class TestDateparseModule(unittest.TestCase):
