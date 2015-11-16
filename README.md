@@ -1,7 +1,7 @@
 # dateparse
 [![Stories in Ready](https://badge.waffle.io/tobiasli/dateparse.svg?label=ready&title=backlog)](http://waffle.io/tobiasli/dateparse)<br/>
-[![Build Status](https://travis-ci.org/tobiasli/dateparse.svg?branch=master)](https://travis-ci.org/tobiasli/dateparse)
-[![Coverage Status](https://coveralls.io/repos/tobiasli/dateparse/badge.svg?branch=master&service=github)](https://coveralls.io/github/tobiasli/dateparse?branch=master)<br/>
+[![Build Status](https://travis-ci.org/tobiasli/dateparse.svg?branch=master)](https://travis-ci.org/tobiasli/dateparse)<br/>
+[![Coverage Status](https://coveralls.io/repos/tobiasli/dateparse/badge.svg?branch=master&service=github)](https://coveralls.io/github/tobiasli/dateparse?branch=master)
 
 Dateparser handling Norwegian dates.
 
