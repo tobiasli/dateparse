@@ -502,10 +502,12 @@ def parse(string):
 
 
 if __name__ == '__main__':
-    strings = ['14. mai 2012','14.05.2012 kl 1306','mandag 14:53','saturday']
-
-    for string in strings:
-        start= timer.clock()
-        print(parse(string))
-        print('\tTime spent: %0.6f' % (timer.clock()-start))
+    from tests import test_dateparse
+    test_dateparse.run()
+##    strings = ['14. mai 2012','14.05.2012 kl 1306','mandag 14:53','saturday']
+##
+##    for string in strings:
+##        start= timer.clock()
+##        print(parse(string))
+##        print('\tTime spent: %0.6f' % (timer.clock()-start))
 
