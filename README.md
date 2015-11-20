@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/tobiasli/dateparse.svg?branch=master)](https://travis-ci.org/tobiasli/dateparse)<br/>
 [![Coverage Status](https://coveralls.io/repos/tobiasli/dateparse/badge.svg?branch=master&service=github)](https://coveralls.io/github/tobiasli/dateparse?branch=master)
 
-Dateparser handling dates (primarily Norwegian).
+Dateparser for creating datetime objects from arbitrarily formated date strings. Primary support for Norwegian date formats.
 
 ```python
 import dateparse
