@@ -16,3 +16,5 @@ dateparse.parse('monday 16:25')
 dateparse.parse(1/12/2014 kl 12)
 >>> datetime.datetime(2014, 12, 11, 12, 00)
 ```
+
+<b>Notice:</b> The module is written for flexibility, not speed. Parsing single dates works fine, parsing hundreds will seem pretty slow.
