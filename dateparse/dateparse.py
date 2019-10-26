@@ -41,6 +41,8 @@ PATTERN_SEQUENCES = [
     (DAY, MONTH, YEAR, HOUR, MINUTE, SECOND),
     (YEAR, MONTH, DAY, HOUR, MINUTE),
     (DAY, MONTH, YEAR, HOUR, MINUTE),
+    (YEAR, MONTH, DAY, HOUR),
+    (DAY, MONTH, YEAR, HOUR),
     (YEAR, MONTH, DAY),
     (DAY, MONTH, YEAR),
     (YEAR, DAY, MONTH),
@@ -142,7 +144,7 @@ class DateParser:
 
         if YEAR in candidate:
             datevec[YEAR] = int(candidate[YEAR])
-            
+
         if MONTH in candidate:
             """Check if numeric month is within 1-12 and alpha month is reasonable. Return month num."""
             try:
@@ -163,7 +165,7 @@ class DateParser:
             if MONTH not in datevec:  # Need month to evaluate day.
                 return {}
             num = int(candidate[DAY])
-            if num in range(1, MONTH_DAYS[datevec[MONTH]]+1):
+            if num in range(1, MONTH_DAYS[datevec[MONTH]] + 1):
                 datevec[DAY] = num
             else:
                 return {}
@@ -184,17 +186,13 @@ class DateParser:
             datevec[SECOND] = int(candidate[SECOND])
             if MICROSECOND in candidate and candidate[MICROSECOND]:
                 # Convert decimals to microseconds:
-                datevec[MICROSECOND] = int(candidate[MICROSECOND])*10**(6-len(candidate[MICROSECOND]))
+                datevec[MICROSECOND] = int(candidate[MICROSECOND]) * 10 ** (6 - len(candidate[MICROSECOND]))
 
         for prop in COMPONENT_LIST:
-            if not prop in datevec:
+            if prop not in datevec:
                 if PATTERN_COMPONENTS[prop][1] == 'date':
                     datevec[prop] = 1
                 elif PATTERN_COMPONENTS[prop][1] == 'time':
                     datevec[prop] = 0
 
         return datevec
-
-
-
-

@@ -5,16 +5,15 @@
 
 Dateparser for creating datetime objects from arbitrarily formated date strings. Primary support for Norwegian date formats.
 
+New version is a complete refactor, with reduced complexity and functionality.
+
 ```python
-import dateparse
-dateparse.parse('5. januar 2015')
->>> datetime.datetime(2015, 1, 5, 0, 0)
+import datetime
+from dateparse import DateParser
+parser = DateParser()
+dt = parser.parse('5. januar 2015')
+print(dt == [datetime.datetime(2015, 1, 5, 0, 0)])
 
-dateparse.parse('monday 16:25')
->>> datetime.datetime(2015, 11, 16, 16, 25)   # The first monday after today.
-
-dateparse.parse('1/12/2014 kl 12')
->>> datetime.datetime(2014, 12, 11, 12, 00)
+dt = parser.parse('1/12/2014 kl 12, 11.12.2015 kl 14')
+print(dt == [datetime.datetime(2014, 12, 1, 12, 00), datetime.datetime(2015, 12, 11, 14, 00)])
 ```
-
-<b>Notice:</b> The module is written for flexibility, not speed. Parsing single dates works fine, parsing hundreds will seem pretty slow.
