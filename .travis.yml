@@ -19,6 +19,6 @@ deploy:
   provider: pypi
   user: __token__
   password:
-    secure: pypi-AgEIcHlwaS5vcmcCJDI3NzIwYjVhLTRmM2ItNDgwNy1iMjNiLWMzZDUyNmQwNzM4MAACQ3sicGVybWlzc2lvbnMiOiB7InByb2plY3RzIjogWyJkYXRlcGFyc2UtdG9iaWFzbGkiXX0sICJ2ZXJzaW9uIjogMX0AAAYg4eBExKomJk5K9Q6eWUE2SbGndJKbXzjzl6N-ScFBwHc
+    secure: AgEIcHlwaS5vcmcCJDI3NzIwYjVhLTRmM2ItNDgwNy1iMjNiLWMzZDUyNmQwNzM4MAACQ3sicGVybWlzc2lvbnMiOiB7InByb2plY3RzIjogWyJkYXRlcGFyc2UtdG9iaWFzbGkiXX0sICJ2ZXJzaW9uIjogMX0AAAYg4eBExKomJk5K9Q6eWUE2SbGndJKbXzjzl6N-ScFBwHc
   on:
     branch: master
