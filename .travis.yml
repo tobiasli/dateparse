@@ -1,15 +1,23 @@
 language: python
+dist: xenial
+sudo: false
 python:
-    - "3.4"
+- '3.6'
+- '3.7'
 before_install:
-    - pip install pytest pytest-cov
+- export PYTHONPATH=$PYTHONPATH:$(pwd)
 install:
-  - pip install coveralls  # Add me to install python-coveralls
+- pip install python-coveralls
+- pip install pytest
+- pip install pytest-cov
 script:
-    - py.test
-    - coverage run main.py
+- pytest --cov=tregex tregex
 after_success:
-  - coveralls                     # Add me to upload reports to coveralls.io
-
-notifications:
-    email: True
+- coveralls
+deploy:
+  provider: pypi
+  user: __token__
+  password:
+    secure: pypi-AgEIcHlwaS5vcmcCJDI3NzIwYjVhLTRmM2ItNDgwNy1iMjNiLWMzZDUyNmQwNzM4MAACQ3sicGVybWlzc2lvbnMiOiB7InByb2plY3RzIjogWyJkYXRlcGFyc2UtdG9iaWFzbGkiXX0sICJ2ZXJzaW9uIjogMX0AAAYg4eBExKomJk5K9Q6eWUE2SbGndJKbXzjzl6N-ScFBwHc
+  on:
+    branch: master
