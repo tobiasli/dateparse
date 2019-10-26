@@ -6,9 +6,11 @@ python:
 - '3.7'
 before_install:
 - export PYTHONPATH=$PYTHONPATH:$(pwd)
-- pip install python-coveralls
-- pip install pytest
-- pip install pytest-cov
+install:
+  - pip install python-coveralls
+  - pip install pytest
+  - pip install pytest-cov
+  - pip install .
 script:
 - pytest --cov=dateparse dateparse
 after_success:
