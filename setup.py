@@ -17,5 +17,5 @@ setuptools.setup(name='dateparse-tobiasli',
                      "License :: OSI Approved :: MIT License",
                      "Operating System :: OS Independent",
                  ],
-                 requires =['tregex-tobiasli']
+                 requires=['tregex-tobiasli']
                  )
