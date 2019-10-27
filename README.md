@@ -1,6 +1,7 @@
 # dateparse
 [![Build Status](https://travis-ci.org/tobiasli/dateparse.svg?branch=master)](https://travis-ci.org/tobiasli/dateparse)<br/>
-[![Coverage Status](https://coveralls.io/repos/tobiasli/dateparse/badge.svg?branch=master&service=github)](https://coveralls.io/github/tobiasli/dateparse?branch=master)
+[![Coverage Status](https://coveralls.io/repos/tobiasli/dateparse/badge.svg?branch=master&service=github)](https://coveralls.io/github/tobiasli/dateparse?branch=master)<br/>
+[![PyPI version](https://badge.fury.io/py/dateparse-tobiasli.svg)](https://badge.fury.io/py/dateparse-tobiasli)<br/>
 
 Dateparser for creating datetime objects from arbitrarily formated date strings. Primary support for Norwegian date formats.
 
@@ -9,10 +10,8 @@ New version is a complete refactor, with reduced complexity and functionality.
 ## Install
 
 ```
-pip install dateparse-tobiasli
+pip install tregex-tobiasli
 ```
-
-## Usage
 
 ```python
 import datetime
