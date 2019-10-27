@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(name='dateparse-tobiasli',
-                 version='1.0.1',
+                 version='1.0.2',
                  description='Package for converting string timestamps into datetimes.',
                  author='Tobias Litherland',
                  author_email='tobiaslland@gmail.com',

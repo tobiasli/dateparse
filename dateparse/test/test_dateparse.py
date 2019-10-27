@@ -47,3 +47,8 @@ def test_verify_and_get_datevec():
 def test_parse(candidate, expected):
     parser = dateparse.DateParser()
     assert parser.parse(candidate) == expected
+
+
+@pytest.mark.parametrize(('candidate', 'expected'), TEST_CASES)
+def test_parse_precompiled(candidate, expected):
+    assert dateparse.parse(candidate) == expected

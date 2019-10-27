@@ -196,3 +196,11 @@ class DateParser:
                     datevec[prop] = 0
 
         return datevec
+
+
+_DATE_PARSER = DateParser()
+
+
+def parse(datestr: str) -> ty.List[datetime]:
+    """Parse dates from the given datestring."""
+    return _DATE_PARSER.parse(datestr)
