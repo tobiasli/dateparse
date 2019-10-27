@@ -1,30 +1,10 @@
 """Better package for parsing norwegian datestrings."""
 import typing as ty
-from itertools import groupby
 from datetime import datetime
 
 import tregex
 
 Number = ty.Union[int, float]
-
-SEPERATORS = {
-    'group': r'\W(?:kl\.?\W?)?',
-    'date': r'[\.\-\W\\/]',
-    'time': r'[\.\-:]?',
-}
-
-PATTERN_COMPONENTS = {
-    'year': (r'(?P<year>\d{4}|\d{2})', 'date'),
-    'month': (r'(?P<month>\d{1,2}|\w{3,9})', 'date'),
-    'day': (r'(?P<day>\d{1,2}|\w{1,7})\.?', 'date'),
-    'hour': (r'(?P<hour>\d{1,2})', 'time'),
-    'minute': (r'(?P<minute>\d{2})', 'time'),
-    'second': (r'(?P<second>\d{2})(?:[\.,](?P<microsecond>\d+))?', 'time'),
-    'microsecond': (r'', 'time'),  # microseconds are handled within the seconds pattern.
-}
-
-START_LIMITER = r'(:?(?<=\W)|^)'
-END_LIMITER = r'(:?(?=\W)|$)'
 
 YEAR = 'year'
 MONTH = 'month'
@@ -33,6 +13,37 @@ HOUR = 'hour'
 MINUTE = 'minute'
 SECOND = 'second'
 MICROSECOND = 'microsecond'
+DATE = 'date'
+TIME = 'time'
+
+SEPARATORS = {
+    DATE: r'(?P<date_sep>[\.\-\W\\/])',
+    TIME: r'(?P<time_sep>[\.\-:]?)',
+
+}
+
+SEPARATOR_BACKREFS = {
+    DATE: r'(?P=date_sep)',
+    TIME: r'(?P=time_sep)',
+}
+
+GROUP_SEPARATORS = {
+    'date-time': r' (?:kl\.? ?)?',
+    'time-date': r' ',
+}
+
+PATTERN_COMPONENTS = {
+    YEAR: (r'(?P<year>\d{4}|\d{2})', 'date'),
+    MONTH: (r'(?P<month>\d{1,2}|\w{3,9})', 'date'),
+    DAY: (r'(?P<day>\d{1,2}|\w{1,7})\.?', 'date'),
+    HOUR: (r'(?P<hour>\d{1,2})', 'time'),
+    MINUTE: (r'(?P<minute>\d{2})', 'time'),
+    SECOND: (r'(?P<second>\d{2})(?:[\.,](?P<microsecond>\d+))?', 'time'),
+    MICROSECOND: (r'', 'time'),  # microseconds are handled within the seconds pattern.
+}
+
+START_LIMITER = r'(:?(?<=\W)|^)'
+END_LIMITER = r'(:?(?=\W)|$)'
 
 COMPONENT_LIST = [YEAR, MONTH, DAY, HOUR, MINUTE, SECOND, MICROSECOND]
 
@@ -104,13 +115,37 @@ MONTH_DAYS = {
 
 
 def pattern_builder(seq: ty.Sequence[str]) -> str:
-    """Combine a pattern sequence to create a valid regex pattern"""
-    pattern_groups = {k: list(v) for k, v in groupby([PATTERN_COMPONENTS[part] for part in seq], key=lambda x: x[1])}
+    """Combine a pattern sequence to create a valid regex pattern.
+    Rules:
+    Each type of pattern (date, time) have their own set of separators.
+    Between each type of pattern (date, time) we have a separate set of separators.
+    Within each group, make sure all separators are consistent (by using the separator_counter).
+    """
     patterns = list()
-    for group in pattern_groups:
-        patterns.append(SEPERATORS[group].join([pat[0] for pat in pattern_groups[group]]))
 
-    pattern = START_LIMITER + SEPERATORS['group'].join(patterns) + END_LIMITER
+    sequence = [PATTERN_COMPONENTS[part_name] for part_name in seq]
+
+    # Loop through and keep track of current and next part.
+    next_parts = sequence[1:]
+    next_parts.append((None, None))
+    prev_parts = sequence[:-1]
+    prev_parts.insert(0, (None, None))
+    for prev_part, part, next_part in zip(prev_parts, sequence, next_parts):
+        patterns.append(part[0])
+        if not next_part[0]:
+            break
+        if part[1] == next_part[1]:
+            if prev_part[1] != part[1]:
+                # This is the first time we encounter the separator, so we add a pattern to find out which one it is.
+                patterns.append(SEPARATORS[part[1]])
+            else:
+                # We have already added a separator matcher, so we backreference that one.
+                patterns.append(SEPARATOR_BACKREFS[part[1]])
+
+        else:
+            patterns.append(GROUP_SEPARATORS[f'{part[1]}-{next_part[1]}'])
+
+    pattern = START_LIMITER + ''.join(patterns) + END_LIMITER
     return pattern
 
 
@@ -122,8 +157,8 @@ class DateParser:
         """Parse a date string and try to find a valid datetime."""
         for pattern, seq in zip(self.patterns, PATTERN_SEQUENCES):
             # seq is only used for debugging.
-            # print(datestr)
-            # print(seq)
+            print(datestr)
+            print(seq)
             result = pattern.to_dict(datestr)
             if result:
                 results = list()
