@@ -7,10 +7,10 @@ python:
 before_install:
 - export PYTHONPATH=$PYTHONPATH:$(pwd)
 install:
-  - pip install python-coveralls
-  - pip install pytest
-  - pip install pytest-cov
-  - pip install .
+- pip install python-coveralls
+- pip install pytest
+- pip install pytest-cov
+- pip install .
 script:
 - pytest --cov=dateparse dateparse
 after_success:
@@ -19,6 +19,6 @@ deploy:
   provider: pypi
   user: __token__
   password:
-    secure: AgEIcHlwaS5vcmcCJDI3NzIwYjVhLTRmM2ItNDgwNy1iMjNiLWMzZDUyNmQwNzM4MAACQ3sicGVybWlzc2lvbnMiOiB7InByb2plY3RzIjogWyJkYXRlcGFyc2UtdG9iaWFzbGkiXX0sICJ2ZXJzaW9uIjogMX0AAAYg4eBExKomJk5K9Q6eWUE2SbGndJKbXzjzl6N-ScFBwHc
+    secure: BQnCNH6tggLkDviQPdP0Q7tOk7TjoXrYXZzkqbnafea9xqiswVZUA26i3uGv3gmunaZ8kUsk0Sjxw84db+J+kkWSEm9ds6731zq9Eai7kJqhVhSCYhECltQBSkN2mOkoxetLhay0rw0gIAfk5lKp6eJ4asjOpojwCaYDbgkvodRv/z3erZdE2PskbqfJU7cyvFdgcKgk239VJDGwbD8ey811EBly5tmYb038lrt8cAZOk51MD+VmwstZUInvRVtHzIXJuzVEfpoKISRCPCbGsXXkgkNc9Jfn8LSesjYF0jz4khkkJrsnDov/eyVqgnpxSL73ueu0mqQI3kb5LeC+5P3rwoyeIMdawnnwH0MluRiXjBt/vgphmP9Ae7UP9KC8LZQwOHv3tPBgUiCTV8WdaMHlW3K06nOS9+rpCUNVJVzL0VpOr+R3JnladUjOq6JhjFc7RPxiV4J/DKpTUWK9puLK6mkO55F98GNYYULu2uwrW0Zi9R8BFtGdGgwEMGFGMbjHpVNqIcAuUu8rMtIo6J2cnOIAViu05Dr1w+zmwAcAyEaqgufQ10jZvgvwJpqJXMyoQACrEnwbmy4PFumCNAdgOBRtrDP/GqxjjN2wHIkQaNXJZpMOo49ls/Kj7woaDEh0RdT+ymoiB5t7On9GI2SATo/RkQqRP1GwGAaUuGA=
   on:
     branch: master
