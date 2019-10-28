@@ -6,7 +6,7 @@
 Dateparser for creating datetime objects from arbitrarily formated date strings. Primary support for Norwegian date formats.
 
 New version is a complete refactor:
-* Much faster paring. 
+* Much faster parsing. 
 * Reduced pattern complexity. 
 * Improved matching rutine. 
 * Some reduced functionality with less used time formats (centuries, relative dates, text based). 
