@@ -10,7 +10,7 @@ New version is a complete refactor, with reduced complexity and functionality.
 ## Install
 
 ```
-pip install tregex-tobiasli
+pip install dateparse-tobiasli
 ```
 
 ```python
