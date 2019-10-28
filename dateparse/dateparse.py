@@ -157,8 +157,8 @@ class DateParser:
         """Parse a date string and try to find a valid datetime."""
         for pattern, seq in zip(self.patterns, PATTERN_SEQUENCES):
             # seq is only used for debugging.
-            print(datestr)
-            print(seq)
+            # print(datestr)
+            # print(seq)
             result = pattern.to_dict(datestr)
             if result:
                 results = list()
